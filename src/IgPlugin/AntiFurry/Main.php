@@ -11,11 +11,7 @@ class Main extends PluginBase {
 	public static function isCursedWords(string $string): bool {
 		$cursedwords = ["UwU", "OwO", "furry"];
 		foreach ($cursedwords as $cursedword) {
-			if (str_contains($string, $cursedword)) {
-				return true;
-			} else {
-				return false;
-			}
+			return str_contains($string, $cursedword);
 		}
 		return false;
 	}

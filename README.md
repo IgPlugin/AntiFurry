@@ -1,0 +1,2 @@
+# AntiFurry
+Begone furries

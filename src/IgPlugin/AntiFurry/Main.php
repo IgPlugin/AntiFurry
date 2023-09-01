@@ -12,7 +12,7 @@ public function onChat(PlayerChatEvent $event){
   $plr = $event->getPlayer();
 $msg = $plr->getMessage():
   if (str_contains($msg , "UwU")){
-$this->getServer()->kick($plr)->setMessage("Ew, Go Away");
+$this->getServer()->getPlayer($plr)->kick("Ew, Go Away");
   
 }
 }
@@ -21,7 +21,7 @@ $plr = $event->getPlayer();
     $pname = $plr->getName();
 $cursedwords = "UwU", "furry" 
     if (str_contains($pname, $cursedwords)){
-$this->getServer()->kick($plr)->setMessage("Ew, get outta here");
+$this->getServer()->getPlayer($plr)->kick("Ew, get outta here");
     }
   }
 

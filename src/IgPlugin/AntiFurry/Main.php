@@ -2,29 +2,37 @@
 
 namespace IgPlugin\AntiFurry;
 
-use pocketmine\event\PlayerChatEvent;
-use pocketmine\event\PlayerJoinEvent;
+use pocketmine\event\player\PlayerChatEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase {
 
-public function onChat(PlayerChatEvent $event){
-  $plr = $event->getPlayer();
-$msg = $plr->getMessage();
-  $cursedwords = "UwU" , "OwO";
-  if (str_contains($msg , $cursedwords)){
-$this->getServer()->getPlayer($plr)->kick("Ew, Go Away");
-  
-}
-}
-  public function onJoin(PlayerJoinEvent $event){
-$plr = $event->getPlayer();
-    $pname = $plr->getName();
-$cursedwords = "UwU", "OwO", "furry";
-    if (str_contains($pname, $cursedwords)){
-$this->getServer()->getPlayer($plr)->kick("Ew, get outta here");
-    }
-  }
+	public static function isCursedWords(string $string): bool {
+		$cursedwords = ["UwU", "OwO", "furry"];
+		foreach ($cursedwords as $cursedword) {
+			if (str_contains($string, $cursedword)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
 
-}
+	public function onChat(PlayerChatEvent $event): void {
+		$player = $event->getPlayer();
+		$msg = $event->getMessage();
+		if (self::isCursedWords($msg)) {
+			$player->kick("Ew, Go Away");
+		}
+	}
 
+	public function onJoin(PlayerJoinEvent $event): void {
+		$player = $event->getPlayer();
+		$playerName = $player->getName();
+		if (self::isCursedWords($playerName)) {
+			$player->kick("Ew, get outta here");
+		}
+	}
+}
